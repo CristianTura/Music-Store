@@ -115,11 +115,16 @@ fetchGifPort()
 const menuBurger = document.querySelector('.menu-burger')
 const containerMenu = document.querySelector('.container-menu')
 const menuClose = document.querySelector('.menu-close')
+const menuList = document.querySelector('.menu-list')
 
 
 menuBurger.addEventListener('click', () => {
   containerMenu.classList.add('visible')
 })
 menuClose.addEventListener('click', () => {
+  containerMenu.classList.remove('visible')
+})
+
+menuList.addEventListener('click', () => {
   containerMenu.classList.remove('visible')
 })
