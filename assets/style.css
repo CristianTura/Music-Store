@@ -23,6 +23,11 @@ a{
 /*-------------Styles Header------------- */
 header{
   width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  z-index: 10;
+  background-color: white;
 }
 header .container-menu {
   margin: auto;
@@ -42,16 +47,102 @@ header .container-menu {
   font-size: 22px;
   font-weight: 600;
 }
+.container-menu .menu-close{
+  display: none;
+}
+.container-menu .menu-burger{
+  display: none;
+}
+
+/*-------------Responsive Header------------- */
+
+@media (max-width:414px) {
+  header .container-menu {
+    margin: auto;
+  }
+  .logo img {
+    height: 50px;
+  }
+  .enlaces-menu{
+    display: none;
+  }
+  .enlaces-menu a{
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .enlaces-menu ul {
+    flex-direction: column;
+    padding-left: 0;
+  }
+  .enlaces-menu li{
+    margin: 20px;
+    border-bottom: 1px solid rgb(138, 32, 32);
+    padding-bottom: 10px;
+  }
+  .container-menu .menu-burger{
+    display: inline-block;
+    height: 25px;
+  }
+  
+   
+
+  .container-menu.visible .enlaces-menu {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    height: 100vh;
+    padding-top: 20px;
+  }
+  .container-menu.visible .logo {
+    display: none;
+  }
+  .container-menu.visible .menu-burger{
+    display: none;
+  }
+  .container-menu.visible .menu-close{
+    display: block;
+    height: 30px;
+    position: absolute;
+    top: 10px;
+    right: 10%;
+  }
+}
+
+
 
 
 /*-------------Styles Main------------- */
 
+/*-------------Styles Gif Speakers------------- */
 
+main .speaker1 img{
+  position: absolute;
+  width: 20%;
+  z-index: 5;
+  top: 3%;
+  right: 2%;
+}
+main .speaker2 img{
+  position: absolute;
+  width: 20%;
+  z-index: 5;
+  top: 3%;
+  left: 2%;
+}
+
+canvas {
+  position: absolute;
+  z-index: 5;
+  top: 55%;
+  left: 7%;
+}
 /*-------------Section instrument------------- */
 
 main .battery{
   background-color: black;
   height: 100vh;
+  position: relative;
 }
 .battery h2 {
   color: white;
@@ -66,6 +157,41 @@ main .battery{
 }
 
 
+/*-------------Responsive Section instrument------------- */
+
+@media (max-width:414px) {
+  main .battery{
+    height: 380px;
+  }
+  .container-battery{
+    width: 100%;
+    height: 55%;
+  }
+  .battery h2 {
+    padding: 18px 0px;
+    font-size: 20px;
+  }
+  main .speaker1 img{
+    top: 15%;
+    right: 2%;
+  }
+  main .speaker2 img{
+    top: 15%;
+    left: 2%;
+  }
+  canvas {
+    top: 80%;
+    left: 40%;
+    width: 25%;
+    height: 10%;
+  }
+
+  .cont-top-drums p{
+    font-weight: 500;
+    font-size: 8px;
+  }
+}
+
 /*-------------section megaphone------------- */
 
 .container-megaphone{
@@ -75,7 +201,7 @@ main .battery{
   height: 18%;
 }
 .megaphone {
-  height: 70%;
+  height: 75%;
   width: 100%;
   background: rgb(255,255,255);
   background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 62%, rgba(0,0,0,1) 100%);
@@ -95,23 +221,20 @@ main .battery{
   width: 100%;
 }
 .base{
-  height: 30%;
-  /* position: relative;
-  top: 0%; */
-  /* border: 1px solid white; */
-  /* background-color: white; */
+  height: 25%;
 }
 .base1{
+  height: 0;
   margin: auto;
   width: 95%;
-  border-top: 15px solid white;
+  border-top: 15px solid #ccc;
   border-right: 10px solid black; 
   border-left: 10px solid black; 
 }
 .base2{
   margin: auto;
   width: 90%;
-  border-bottom: 9px solid white;
+  border-bottom: 9px solid #ccc;
   border-right: 2px solid black; 
   border-left: 2px solid black; 
 }
@@ -174,7 +297,7 @@ main .battery{
 }
 .drum-md-Out{
   position: relative;
-  top: 34%;
+  top: 30%;
   background-color: black;
   width: 22%;
   height: 62.015%;
@@ -403,15 +526,55 @@ main .battery{
   justify-content: center;
   flex-direction: column;
 }
-.controllers .gif{
-  grid-column: 1;
-  grid-row: 2;
-}
 .text .find {
   font-size: 1rem;
   margin: 5% 0;
 } 
 
+/*-------------Responsive Section Products------------- */
+
+@media (max-width:414px) {
+  .promotions {
+    flex-direction: column-reverse;
+    padding-left: 0%;
+  }
+  .promotions .text{
+    width: 90%;
+  }
+  .text .title {
+    font-size: 1.2rem;
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .text .terms {
+    text-align: center;
+    font-size: 0.6rem;
+    margin: 2% 0;
+  } 
+  .products .gif{
+    width: 100%;
+  }
+  .products button {
+    width: 25%;
+    padding: 0.8%;
+    font-size: 0.7rem;
+    margin: auto;
+  }
+  .controllers {
+    flex-direction: column-reverse;
+    padding-left: 0%;
+    margin-top: 10%;
+  }
+  .controllers .text{
+    width: 90%;
+  }
+  .text .find {
+    font-size: 0.9rem;
+    margin: 2% 0;
+    text-align: center;
+  } 
+}
 
 /*-------------section Service------------- */
 
@@ -420,6 +583,7 @@ main .battery{
   width: 100%;
   display: flex;
   background-color: black;
+  align-items: center;
 }
 .service .gif {
   width: 30%;
@@ -435,7 +599,6 @@ main .battery{
   flex-direction: column;
 }
 .service .text .title {
-  margin-top: 10%;
   color: white;
   font-size: 2.3rem;
   width: 65%;
@@ -457,10 +620,42 @@ main .battery{
   margin-top: 5%;
 }
 
+/*-------------Responsive Section instrument------------- */
+
+@media (max-width:414px) {
+  .service {
+    flex-direction: column-reverse;
+  }
+  .service .gif {
+    width: 40%;
+    margin: 5% 0;
+  }
+  .service .text {
+    width: 90%;
+  }
+  .service .text .title {
+    font-size: 1.6rem;
+    width: 100%;
+  }
+  .service .text .context {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 2%;
+  }
+  .service .text button{
+    width: 30%;
+    color: black;
+    padding: 0.6%;
+    font-size: 0.9rem;
+  }
+}
+
 /*-------------Footer------------- */
 
 .pay {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .pay h3{
   font-size: 1.8rem;
@@ -489,15 +684,12 @@ main .battery{
   margin-top: 3%;
 }
 .pay button {
-  margin: auto;
   width: 15%;
   background-color: black;
   border: none;
   border-radius: 7px;
   padding: 0.5%;
-  margin: 3% auto;
-  position: relative;
-  left: 40%;
+  margin: 1% auto 3%;
 }
 .pay button a{
   font-size: 1rem;
@@ -511,4 +703,45 @@ main .battery{
 .copyright p{
   color: white;
   padding: 15px;
+}
+
+footer .gifButton {
+  width: 5%;
+  margin: auto;
+}
+
+/*-------------Responsive Section instrument------------- */
+
+@media (max-width:414px) {
+  .pay h3{
+    font-size: 1.2rem;
+    padding-left: 10%;
+    font-weight: 700;
+  }
+  .pay h4 {
+    font-size: 1.3rem;
+  }
+  .pay img {
+    width: 30%;
+    margin-right: 5%;
+  }
+  .pay button {
+    width: 30%;
+    padding: 0.8%;
+    margin: 1% auto 3%;
+  }
+  .pay button a{
+    font-size: 0.7rem;
+  }
+  .copyright p{
+    padding: 10px;
+    font-size: 12px;
+  }
+  .pay h4 {
+    font-size: 15px;
+  }
+  footer .gifButton {
+    width: 10%;
+    margin: 10px auto;
+  }
 }

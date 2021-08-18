@@ -20,11 +20,13 @@
       <div class="enlaces-menu">
         <ul>
           <li><a href="#">Inicio</a></li>
-          <li><a href="#">Productos</a></li>
-          <li><a href="#">Servicios</a></li>
-          <li><a href="#">Medios de pago</a></li>
+          <li><a href="#products">Productos</a></li>
+          <li><a href="#service">Servicios</a></li>
+          <li><a href="#pay">Medios de pago</a></li>
         </ul>
       </div>
+      <img class="menu-burger" src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png"/>
+      <img class="menu-close" src="https://img.icons8.com/windows/32/000000/close-sign.png"/>
 
     </div>
 
@@ -62,16 +64,16 @@
             <div class="square-left-found"></div>
             <div class="circle-left-found"></div>
             <div class="drum-Sm-Out left">
-              <div class="drum-Sm-half">
+              <div class="drum-Sm-half" id="cymbal-crash">
                 <div class="drum-Sm-ins"></div>
               </div>
             </div>
             <p>Electronic Drum</p>
-            <div class="drum-md-Out">
+            <div class="drum-md-Out" id="snare">
                 <div class="drum-md-ins"></div>
             </div>
             <div class="drum-Sm-Out right">
-              <div class="drum-Sm-half">
+              <div class="drum-Sm-half" id="cymbal-ride">
                 <div class="drum-Sm-ins"></div>
               </div>
             </div>
@@ -88,17 +90,17 @@
           <div class="square2-found"></div>
 
           <div class="drum-bg-out">
-            <div class="drum-bg-half">
+            <div class="drum-bg-half" id="hihat">
               <div class="drum-bg-ins"></div>
             </div>
           </div>
           <div class="drum-md-Out">
-            <div class="drum-md-half">
+            <div class="drum-md-half" id="tom1">
               <div class="drum-Sm-ins"></div>
             </div>
           </div>
           <div class="drum-md-Out">
-            <div class="drum-md-half">
+            <div class="drum-md-half" id="tom2">
               <div class="drum-Sm-ins"></div>
             </div>
           </div>
@@ -108,7 +110,7 @@
           <div class="circle-found3"></div>
 
           <div class="drum-bg-out">
-            <div class="drum-bg-half">
+            <div class="drum-bg-half" id="bass-drum">
               <div class="drum-bg-ins"></div>
             </div>
           </div>
@@ -119,12 +121,11 @@
 
       </div>
 
-      <div class="frequency1"></div>
-      <div class="frequency1"></div>
+      <canvas id="canvas" width="200" height="100"></canvas>
 
     </section>
 
-    <section class="products">
+    <section class="products" id="products">
 
       <div class="promotions">
 
@@ -134,7 +135,7 @@
           <button>Muestrame</button>
         </div>
         <div class="gif">
-          <img src="./assets/img/gif2.png" alt="">
+          <!-- <img src="./assets/img/gif2.png" alt=""> -->
         </div>
 
       </div>
@@ -154,10 +155,10 @@
 
     </section>
 
-    <section class="service">
+    <section class="service" id="service">
 
       <div class="gif">
-        <img src="./assets/img/gif3.png" alt="">
+        <!-- <img src="./assets/img/gif3.png" alt=""> -->
       </div>
       <div class="text">
         <p class="title">¿Quieres sonar como nunca?
@@ -172,7 +173,7 @@
 
   <footer>
 
-    <div class="pay">
+    <div class="pay" id="pay">
       <h3>Medios de pago</h3>
       
       <div class="content-pay">
@@ -192,7 +193,7 @@
         </div>
       </div>
 
-      <button><a href="#">Ver Portafolio Web</a></button>
+      <button id="portafolio"><a href="https://cristiantura.github.io/Portafolio/" target="_blank">Ver Portafolio Web</a></button>
     </div>
 
     <div class="copyright">
@@ -203,4 +204,5 @@
 
 </body>
   <script src="./app.js"></script>
+  <script src="./app2.js"></script>
 </html>
