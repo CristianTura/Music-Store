@@ -137,12 +137,77 @@ canvas {
   top: 55%;
   left: 7%;
 }
+.inputDiv {
+  position: absolute;
+  z-index: 5;
+  top: 65%;
+  right: 7%;
+}
+.inputDiv input[type='range']{
+  display: block;
+  width: 100px;
+}
+.inputDiv input[type='range']:focus {
+  outline: none;
+}
+.inputDiv input[type='range'],
+.inputDiv input[type='range']::-webkit-slider-runnable-track,
+.inputDiv input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+.inputDiv input[type=range]::-webkit-slider-thumb{
+  background-color: #777;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #333;
+  border-radius: 50%;
+  margin-top: -9px;
+}
+.inputDiv input[type=range]::-moz-range-thumb{
+  background-color: #777;
+  width: 15px;
+  height: 15px;
+  border: 3px solid #333;
+  border-radius: 50%;
+}
+.inputDiv input[type=range]::-ms-thumb{
+  background-color: #777;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #333;
+  border-radius: 50%;
+ }
+
+.inputDiv input[type=range]::-webkit-slider-runnable-track{
+  background-color: #777;
+  height: 3px;
+}
+.inputDiv input[type=range]:focus::-webkit-slider-runnable-track {
+  outline: none;
+}
+.inputDiv input[type=range]::-moz-range-track{
+  background-color: #777;
+  height: 3px;
+}
+.inputDiv input[type=range]::-ms-track{
+  background-color: #777;
+  height: 3px;
+}
+.inputDiv input[type=range]::-ms-fill-lower {
+  background-color: HotPink
+}
+
+.inputDiv input[type=range]::-ms-fill-upper {
+  background-color: black;
+} 
+
 /*-------------Section instrument------------- */
 
 main .battery{
   background-color: black;
   height: 100vh;
   position: relative;
+  width: 100%;
 }
 .battery h2 {
   color: white;
@@ -154,42 +219,8 @@ main .battery{
   width: 70%;
   height: 77.5%;
   margin: auto;
-}
-
-
-/*-------------Responsive Section instrument------------- */
-
-@media (max-width:414px) {
-  main .battery{
-    height: 380px;
-  }
-  .container-battery{
-    width: 100%;
-    height: 55%;
-  }
-  .battery h2 {
-    padding: 18px 0px;
-    font-size: 20px;
-  }
-  main .speaker1 img{
-    top: 15%;
-    right: 2%;
-  }
-  main .speaker2 img{
-    top: 15%;
-    left: 2%;
-  }
-  canvas {
-    top: 80%;
-    left: 40%;
-    width: 25%;
-    height: 10%;
-  }
-
-  .cont-top-drums p{
-    font-weight: 500;
-    font-size: 8px;
-  }
+  overflow: hidden;
+  clear: both;
 }
 
 /*-------------section megaphone------------- */
@@ -211,14 +242,8 @@ main .battery{
   border-radius: 10px;
   /* border-right: 50px solid black; */
 }
-.megaphone  button{
-  padding: 0;
-  border: none;
-  height: 28.5%;
-  width: 5%;
-}
 .megaphone  img{
-  width: 100%;
+  width: 15px;
 }
 .base{
   height: 25%;
@@ -255,7 +280,6 @@ main .battery{
   display: flex;
   justify-content: space-between;
   position: relative;
-  overflow: hidden;
 }
 .cont-top-drums p{
   position: absolute;
@@ -330,6 +354,8 @@ main .battery{
   position: absolute;
   width: 19%;
   height: 50%;
+  left: -0.5%;
+  top: -0.5%;
 }
 .cont-top-drums .circle-right-found{
   background-color: black;
@@ -343,9 +369,10 @@ main .battery{
 .cont-top-drums .square-right-found{
   background-color: black;
   position: absolute;
-  right: 0%;
+  right: -0.5%;
   width: 19%;
   height: 50%;
+  top: -0.5%;
 }
 
 
@@ -438,32 +465,89 @@ main .battery{
 }
 .rectangle-found{
   background-color: black;
-  width: 100%;
-  height: 35%;
+  width: 101%;
+  height: 36%;
   position: absolute;
-  bottom: 0%;
+  bottom: -1%;
+  left: -0.5%;
 }
 .square1-found{
   background-color: black;
   width: 14%;
-  height: 65%;
+  height: 66%;
   position: absolute;
-  top: 0%;
-}
-.square1-found{
-  background-color: black;
-  width: 14%;
-  height: 65%;
-  position: absolute;
-  top: 0%;
+  left: -0.5%;
+  top: -0.7%;
 }
 .square2-found{
   background-color: black;
   width: 14%;
-  height: 65%;
+  height: 66%;
   position: absolute;
-  top: 0%;
-  right: 0;
+  top: -1%;
+  right: -0.5%;
+}
+
+
+/*-------------Responsive Section instrument------------- */
+
+@media (max-width:414px) {
+  main .battery{
+    height: 380px;
+    width: 100%;
+  }
+  .container-battery{
+    
+    height: 55%;
+  }
+  .battery h2 {
+    padding: 18px 0px;
+    font-size: 15px;
+  }
+  main .speaker1 img{
+    top: 15%;
+    right: 2%;
+  }
+  main .speaker2 img{
+    top: 15%;
+    left: 2%;
+  }
+  canvas {
+    top: 75%;
+    left: 40%;
+    width: 25%;
+    height: 10%;
+  }
+  .cont-top-drums p{
+    font-weight: 500;
+    font-size: 6.5px;
+    left: 34%;
+  }
+  .megaphone  img{
+    width: 8px;
+  }
+  .inputDiv {
+    position: absolute;
+    z-index: 5;
+    top: 90%;
+    left: 30%;
+  }
+  .inputDiv input[type='range'] {
+    display: block;
+    width: 150px;
+    height: 4px;
+    background-color: red;
+  }
+  .inputDiv input[type=range]::-webkit-slider-thumb{
+    width: 15px;
+    height: 15px;
+    margin-top: -6px;
+  }
+  .inputDiv input[type=range]::-moz-range-thumb{
+    background-color: #777;
+    width: 10px;
+    height: 10px;
+  }
 }
 
 

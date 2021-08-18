@@ -6,6 +6,7 @@ const cymbalRide = document.querySelector('#cymbal-ride')
 const hihat = document.querySelector('#hihat')
 const snare = document.querySelector('#snare')
 const tom2 = document.querySelector('#tom2')
+const panControl = document.querySelector('#panControl')
 
 
 cymbalCrash.addEventListener('click', function() {
@@ -15,6 +16,12 @@ cymbalCrash.addEventListener('click', function() {
   }
   notas(330, 0.006);
 })
+window.addEventListener("keydown", function (e) {
+  e.preventDefault();
+  if(e.key == 'w'){
+    notas(330, 0.006);
+  }
+});
 
 hihat.addEventListener('click', function() {
 
@@ -23,6 +30,12 @@ hihat.addEventListener('click', function() {
   }
   notas(310, 0.006);
 })
+window.addEventListener("keydown", function (e) {
+  e.preventDefault();
+  if(e.key == 'a'){
+    notas(310, 0.006);
+  }
+});
 
 cymbalRide.addEventListener('click', function() {
 
@@ -31,6 +44,12 @@ cymbalRide.addEventListener('click', function() {
   }
   notas(350, 0.006);
 })
+window.addEventListener("keydown", function (e) {
+  e.preventDefault();
+  if(e.key == 'o'){
+    notas(350, 0.006);
+  }
+});
 
 snare.addEventListener('click', function() {
 
@@ -39,6 +58,12 @@ snare.addEventListener('click', function() {
   }
   notas(175, 0.005);
 })
+window.addEventListener("keydown", function (e) {
+  e.preventDefault();
+  if(e.key == 'k'){
+    notas(175, 0.005);
+  }
+});
 
 tom1.addEventListener('click', function() {
 
@@ -47,6 +72,12 @@ tom1.addEventListener('click', function() {
   }
   notas(150, 0.005);
 })
+window.addEventListener("keydown", function (e) {
+  e.preventDefault();
+  if(e.key == 'd'){
+    notas(150, 0.005);
+  }
+});
 
 tom2.addEventListener('click', function() {
 
@@ -55,6 +86,12 @@ tom2.addEventListener('click', function() {
   }
   notas(120, 0.005);
 })
+window.addEventListener("keydown", function (e) {
+  e.preventDefault();
+  if(e.key == ' '){
+    notas(120, 0.005);
+  }
+});
 
 bassDrum.addEventListener('click', function() {
 
@@ -63,10 +100,19 @@ bassDrum.addEventListener('click', function() {
   }
   notas(80, 0.0025);
 })
+window.addEventListener("keydown", function (e) {
+  e.preventDefault();
+  if(e.key == 'ñ'){
+    notas(80, 0.0025);
+  }
+});
 
-// const audioContext = new AudioContext();
 
 function notas (frecuency, vGain){
+  let paneo = audioContext.createStereoPanner(audioContext);
+
+  // el balance cambia hacia la derecha o hacia la izquierda
+  paneo.pan.value = panControl.value;
   
   // Crear un nodo oscilador
   let osc = audioContext.createOscillator();
@@ -86,11 +132,14 @@ function notas (frecuency, vGain){
   let dataArray = new Uint8Array(analyser.frequencyBinCount);
 
   //Conectar el audio del nodo a la salida
-  osc.connect(gain).connect(analyser);
+  osc.connect(gain).connect(paneo).connect(analyser);
 
   osc.start(0);
   osc.stop(audioContext.currentTime + 1);
-  
+
+
+  // ---Visualizador de frecuncias (datos)----
+
   let canvas = document.querySelector("canvas");
   ctx = canvas.getContext('2d');
   let cw = canvas.width = 200;
@@ -114,6 +163,8 @@ function notas (frecuency, vGain){
     // añade la barra al final del array barras, utilizando el método push
     barras.push(barra);
   }
+
+  // ---Función para crear el Visualizador de frecuncias----
 
   function Fotograma() {
     requestId = window.requestAnimationFrame(Fotograma);
