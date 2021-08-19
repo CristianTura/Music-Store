@@ -10,10 +10,6 @@ const panControl = document.querySelector('#panControl')
 
 
 cymbalCrash.addEventListener('click', function() {
-
-  if (audioContext.state === 'suspended'){
-    audioContext.resume();
-  }
   notas(330, 0.006);
 })
 window.addEventListener("keydown", function (e) {
@@ -21,41 +17,36 @@ window.addEventListener("keydown", function (e) {
   if(e.key == 'w'){
     notas(330, 0.006);
   }
-});
+});   
+
 
 hihat.addEventListener('click', function() {
-
-  if (audioContext.state === 'suspended'){
-    audioContext.resume();
-  }
-  notas(310, 0.006);
+  // notas(310, 0.006);
+  hihatSound()
 })
 window.addEventListener("keydown", function (e) {
   e.preventDefault();
   if(e.key == 'a'){
-    notas(310, 0.006);
+    // notas(310, 0.006);
+    hihatSound()
   }
 });
 
-cymbalRide.addEventListener('click', function() {
 
-  if (audioContext.state === 'suspended'){
-    audioContext.resume();
-  }
-  notas(350, 0.006);
+cymbalRide.addEventListener('click', function() {
+  // notas(350, 0.006);
+  clapSound()
 })
 window.addEventListener("keydown", function (e) {
   e.preventDefault();
   if(e.key == 'o'){
-    notas(350, 0.006);
+    // notas(350, 0.006);
+    clapSound()
   }
 });
 
-snare.addEventListener('click', function() {
 
-  if (audioContext.state === 'suspended'){
-    audioContext.resume();
-  }
+snare.addEventListener('click', function() {
   notas(175, 0.005);
 })
 window.addEventListener("keydown", function (e) {
@@ -65,11 +56,8 @@ window.addEventListener("keydown", function (e) {
   }
 });
 
-tom1.addEventListener('click', function() {
 
-  if (audioContext.state === 'suspended'){
-    audioContext.resume();
-  }
+tom1.addEventListener('click', function() {
   notas(150, 0.005);
 })
 window.addEventListener("keydown", function (e) {
@@ -79,25 +67,19 @@ window.addEventListener("keydown", function (e) {
   }
 });
 
-tom2.addEventListener('click', function() {
 
-  if (audioContext.state === 'suspended'){
-    audioContext.resume();
-  }
+tom2.addEventListener('click', function() {
   notas(120, 0.005);
 })
 window.addEventListener("keydown", function (e) {
   e.preventDefault();
-  if(e.key == ' '){
+  if(e.key == ' '){ 
     notas(120, 0.005);
   }
 });
 
-bassDrum.addEventListener('click', function() {
 
-  if (audioContext.state === 'suspended'){
-    audioContext.resume();
-  }
+bassDrum.addEventListener('click', function() {
   notas(80, 0.0025);
 })
 window.addEventListener("keydown", function (e) {
@@ -108,19 +90,21 @@ window.addEventListener("keydown", function (e) {
 });
 
 
-function notas (frecuency, vGain){
-  let paneo = audioContext.createStereoPanner(audioContext);
 
-  // el balance cambia hacia la derecha o hacia la izquierda
+// -----Función para crear el nodo oscilador, gain y paneo ---------
+
+function notas (frecuency, vGain){
+
+  let paneo = audioContext.createStereoPanner(audioContext);
   paneo.pan.value = panControl.value;
   
-  // Crear un nodo oscilador
+
   let osc = audioContext.createOscillator();
   // type = sine, triangle, square, sawtooth
   osc.type = 'sine'
 
   osc.frequency.value = frecuency;
-  // osc.frequency.exponentialRampToValueAtTime(10, audioContext.currentTime + 1);
+
 
   let gain = audioContext.createGain();
   gain.gain.value = 2;
@@ -138,7 +122,7 @@ function notas (frecuency, vGain){
   osc.stop(audioContext.currentTime + 1);
 
 
-  // ---Visualizador de frecuncias (datos)----
+  // ---Visualizador de frecuncias (datos)---------------------
 
   let canvas = document.querySelector("canvas");
   ctx = canvas.getContext('2d');
@@ -147,11 +131,11 @@ function notas (frecuency, vGain){
   ctx.fillStyle = "#fff"
 
   let barras = [];// crea el array de barras
-  // barras.style.background = 'white'
+  
   let bNum = 20;
 
   for(let i= 0; i < bNum; i++){
-    // crea un nuevo objeto barra
+
     let barra = {};
     // establece la anchura ( w ) y la altura ( h ) de las barras
     barra.w = cw/bNum;
@@ -164,21 +148,80 @@ function notas (frecuency, vGain){
     barras.push(barra);
   }
 
-  // ---Función para crear el Visualizador de frecuncias----
+  // ---Función para crear el Visualizador de frecuncias----------------
 
   function Fotograma() {
+
     requestId = window.requestAnimationFrame(Fotograma);
+
     /*el método getByteFrequencyData() toma como argumento un array de tipo Uint8Array*/
     analyser.getByteFrequencyData(dataArray);
     ctx.clearRect(0, 0, cw, ch);
+
     // la doble tilde (~~) es un operador equivalente a Math.floor() o casi
     let n = ~~(analyser.frequencyBinCount / bNum);
+
     for (let i = 0; i < barras.length; i++) {
       barras[i].h = -dataArray[i * n]; // altura negativa!!
       ctx.beginPath();
       ctx.fillRect(barras[i].x, barras[i].y, barras[i].w - 1, barras[i].h);
     }
   }
+
   Fotograma();
+
 }
 
+
+// ---Función para generar el sonido del platillo hihat----------------
+
+let audioBuffer1
+
+function hihatSound(){
+  
+  const request = new XMLHttpRequest();
+  request.open("GET",'https://s3-us-west-2.amazonaws.com/demo-aud-samp/samples/HH_Blofeld_001.wav',true);
+  request.responseType = "arraybuffer";
+  request.onload = function() {
+    audioContext.decodeAudioData(request.response, function(buffer) {
+      audioBuffer1 = buffer;
+    });
+  };
+  request.send();
+
+  function reproducirAudio() {
+      const fuenteDeReproduccion = audioContext.createBufferSource();
+      fuenteDeReproduccion.buffer = audioBuffer1;
+      fuenteDeReproduccion.playbackRate.value = .8;
+      fuenteDeReproduccion.connect(audioContext.destination);
+      fuenteDeReproduccion.start(audioContext.currentTime);
+  }
+  reproducirAudio()
+}
+
+
+// ---Función para generar el sonido del platillo hihat----------------
+
+let audioBuffer2
+
+function clapSound(){
+  
+  const request = new XMLHttpRequest();
+  request.open("GET",'https://s3-us-west-2.amazonaws.com/demo-aud-samp/samples/Clap_Blofeld_2.wav',true);
+  request.responseType = "arraybuffer";
+  request.onload = function() {
+    audioContext.decodeAudioData(request.response, function(buffer) {
+      audioBuffer2 = buffer;
+    });
+  };
+  request.send();
+
+  function reproducirAudio() {
+      const fuenteDeReproduccion = audioContext.createBufferSource();
+      fuenteDeReproduccion.buffer = audioBuffer2;
+      fuenteDeReproduccion.playbackRate.value = .8;
+      fuenteDeReproduccion.connect(audioContext.destination);
+      fuenteDeReproduccion.start(audioContext.currentTime);
+  }
+  reproducirAudio()
+}
